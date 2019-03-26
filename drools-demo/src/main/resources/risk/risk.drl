@@ -1,0 +1,26 @@
+//created on: 2018-5-7
+package com.udtf.rules;
+
+import com.util.AlertUtil;
+import com.fusion.TransEvent;
+import com.fact.AccountFact;
+
+declare TransEvent
+	@role(event)
+end
+
+rule "warning_behavior"
+	when
+		$eventA: TransEvent(behavior == 'withdraw');
+		$eventB: TransEvent($eventA.card == $eventB.card && $eventB.behavior == 'withdraw'
+		 && $eventB.address != $eventA.address && this after[0m, 1m] $eventA );
+	then
+		AlertUtil.alert($eventA.toString() + " " + $eventB.toString());
+end
+
+rule "warning_amount"
+    when
+        $amountFact: AccountFact(amount > 10);
+    then
+        AlertUtil.alert($amountFact.toString());
+end
