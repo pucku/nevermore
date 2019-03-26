@@ -1,0 +1,15 @@
+创建topic = wtest 的schema， id:int, letter:string
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+    --data '{"schema": "{\"type\":\"record\",\"name\":\"Avro\",\"namespace\":\"com.landoop\",\"fields\":[{\"name\":\"id\",\"type\":\"int\"},{\"name\":\"letter\",\"type\":\"string\"}]}"}' \
+    http://localhost:18081/subjects/wtest-value/versions
+
+创建topic = wtest_out 的schema， id:string, letter:string
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+    --data '{"schema": "{\"type\":\"record\",\"name\":\"Avro\",\"namespace\":\"com.landoop\",\"fields\":[{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"letter\",\"type\":\"string\"}]}"}' \
+    http://localhost:18081/subjects/wtest_out-value/versions
+
+注意： 指定 topic = ABC， 程序会自动匹配 ABC-value 的 schema
+
+查看
+curl -X GET http://localhost:18081/subjects/
+curl -X GET http://localhost:18081/subjects/wtest-value/versions

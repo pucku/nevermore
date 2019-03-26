@@ -1,0 +1,8 @@
+{"namespace": "com.landoop",
+ "type": "record",
+ "name": "Avro",
+ "fields": [
+     {"name": "id",  "type": ["int", "null"]},
+     {"name": "letter", "type": ["string", "null"]}
+ ]
+}
